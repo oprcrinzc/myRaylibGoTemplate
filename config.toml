@@ -1,0 +1,31 @@
+fullscreen=true # toggle with F11, KeyCode 300
+fps=60 # 0, 2147483647 ; if < 0 highest possible fps
+gameCursor=false # false = use os cursor
+lang="TH" # in ./assets/langs/{folder_name} ; can fetch in game
+
+[window]
+title = "The Game"
+width=1920
+height=1080
+flag=0x00000002
+
+[keymap] # no controller support yet
+up = 2
+down = 2
+left = 2
+right = 2
+in = 2
+out = 2
+confirm = 2
+cancel = 2
+back = 1 # mouse 4 
+forward = 2 # mouse 5 
+
+[sound]# 0,100
+main=100 
+music=100 
+action=100 
+environment=100
+people=100
+animal=100
+
