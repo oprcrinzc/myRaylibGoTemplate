@@ -98,3 +98,98 @@ type (
 		Spacing int32
 	}
 )
+
+const (
+	Fuyu = iota
+	Haru
+	Natsu
+	Aki
+)
+const (
+	Sunny = iota
+	Cloudy
+	Rain
+	LightRain
+	HeavyRain
+	Humid
+	Snow
+	Thunder
+	Fog
+	Wind
+	Hot
+	Cool
+	Cold
+)
+const (
+	Sunday = iota
+	Monday
+	Tuesday
+	Wednesday
+	Thursday
+	Friday
+	Saturday
+)
+const (
+	January = iota
+	Februay
+	March
+	April
+	May
+	June
+	July
+	August
+	September
+	October
+	November
+	December
+)
+
+var DayString map[int]string = map[int]string{
+	Sunday:    "Sunday",
+	Monday:    "Monday",
+	Tuesday:   "Tuesday",
+	Wednesday: "Wednesday",
+	Thursday:  "Thursday",
+	Friday:    "Friday",
+	Saturday:  "Saturday",
+}
+
+var MonthString map[int]string = map[int]string{
+	January:   "January",
+	Februay:   "Februay",
+	March:     "March",
+	April:     "April",
+	May:       "May",
+	June:      "June",
+	July:      "July",
+	August:    "August",
+	October:   "October",
+	November:  "November",
+	December:  "December",
+	September: "September",
+}
+
+type (
+	Date struct {
+		Day          int
+		Month        int
+		DayFromStart int
+		Year         int
+	}
+	Weather struct {
+		Type        int
+		Temperature float32
+		Humidity    float32
+	}
+	World struct {
+		Season  int
+		Weather Weather
+		Date    Date
+	}
+)
+
+type (
+	Player struct {
+		Name string
+	}
+)

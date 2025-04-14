@@ -47,10 +47,15 @@ func LoadFont() {
 	FontMed64 = rl.LoadFontEx("./assets/fonts/Prompt/Prompt-Medium.ttf", 64, nil, 0)
 	FontMed32 = rl.LoadFontEx("./assets/fonts/Prompt/Prompt-Medium.ttf", 32, nil, 0)
 	FontMed16 = rl.LoadFontEx("./assets/fonts/Prompt/Prompt-Medium.ttf", 16, nil, 0)
+
 	FontPacks["med128"] = t.FontPack{Font: FontMed128, Size: 128, Spacing: 4}
-	FontPacks["med64"] = t.FontPack{Font: FontMed128, Size: 64, Spacing: 4}
-	FontPacks["med32"] = t.FontPack{Font: FontMed128, Size: 32, Spacing: 4}
-	FontPacks["med16"] = t.FontPack{Font: FontMed128, Size: 16, Spacing: 4}
+	FontPacks["med64"] = t.FontPack{Font: FontMed64, Size: 64, Spacing: 4}
+	FontPacks["med32"] = t.FontPack{Font: FontMed32, Size: 32, Spacing: 4}
+	FontPacks["med16"] = t.FontPack{Font: FontMed16, Size: 16, Spacing: 4}
+
+	for _, f := range FontPacks {
+		rl.SetTextureFilter(f.Font.Texture, rl.TextureFilterMode(2))
+	}
 }
 func UnLoadFont() {
 	rl.UnloadFont(FontMed128)

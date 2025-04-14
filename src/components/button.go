@@ -1,18 +1,20 @@
 package components
 
-import rl "github.com/gen2brain/raylib-go/raylib"
+import (
+	t "oprc_core/src/types"
+
+	rl "github.com/gen2brain/raylib-go/raylib"
+)
 
 type (
 	Button struct {
-		Text        string
-		Pos         rl.Vector2
-		IsHover     bool
-		Func        func(self *Button)
-		Width       int32
-		Height      int32
-		Font        rl.Font
-		FontSize    int32
-		FontSpacing int32
+		Text     string
+		Pos      rl.Vector2
+		IsHover  bool
+		Func     func(self *Button)
+		Width    int32
+		Height   int32
+		FontPack t.FontPack
 	}
 	Drawable interface {
 		Draw()
@@ -40,10 +42,10 @@ func (b *Button) Do() *Button {
 func (b *Button) Draw() {
 
 	rl.DrawRectangle(int32(b.Pos.X), int32(b.Pos.Y), b.Width, b.Height, rl.SkyBlue)
-	ts := rl.MeasureTextEx(b.Font, b.Text, float32(b.FontSize), float32(b.FontSpacing))
+	ts := rl.MeasureTextEx(b.FontPack.Font, b.Text, float32(b.FontPack.Size), float32(b.FontPack.Spacing))
 	tp := rl.NewVector2(
 		b.Pos.X-ts.X/2+float32(b.Width)/2,
 		b.Pos.Y-ts.Y/2+float32(b.Height)/2)
 	// rl.DrawCircle(int32(tp.X), int32(tp.Y), 5, rl.Red)
-	rl.DrawTextEx(b.Font, b.Text, tp, float32(b.FontSize), float32(b.FontSpacing), rl.RayWhite)
+	rl.DrawTextEx(b.FontPack.Font, b.Text, tp, float32(b.FontPack.Size), float32(b.FontPack.Spacing), rl.RayWhite)
 }

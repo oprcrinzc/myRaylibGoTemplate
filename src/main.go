@@ -25,14 +25,18 @@ func setUp() {
 		fmt.Print("+ --- Raylib --- +\n")
 	}
 	// |rl.FlagWindowResizable
-	CreateWindow(cfg.Window.Width, cfg.Window.Height, cfg.Fps, cfg.Window.Title, (cfg.Window.Flag &^ rl.FlagFullscreenMode))
+	CreateWindow(cfg.Window.Width, cfg.Window.Height, cfg.Fps, cfg.Window.Title,
+		(cfg.Window.Flag&^rl.FlagFullscreenMode)|rl.FlagMsaa4xHint)
 	rl.SetWindowMinSize(int(cfg.Window.Width), int(cfg.Window.Height))
 	rl.SetExitKey(rl.KeyNull)
 
 	WIDTH = int32(rl.GetScreenWidth())
 	HEIGHT = int32(rl.GetScreenHeight())
+
 	LoadFont()
 	LoadRT2d()
+
+	scene.FONTPACKS = FontPacks
 
 	Seq.Add(func() {
 		if rl.IsKeyPressed(rl.KeyF11) {
