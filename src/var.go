@@ -100,12 +100,15 @@ var rt2Post rl.RenderTexture2D
 var rt2CurrentScene rl.RenderTexture2D
 
 var cfg *Config = new(Config)
+var WIDTH int32
+var HEIGHT int32
+var ISFULLSCREEN bool = false
 
-// var state int = 0
+var state int = 1
 
 func LoadRT2d() {
-	rt2Post = rl.LoadRenderTexture(cfg.Window.Width, cfg.Window.Height)
-	rt2CurrentScene = rl.LoadRenderTexture(cfg.Window.Width, cfg.Window.Height)
+	rt2Post = rl.LoadRenderTexture(WIDTH, HEIGHT)
+	rt2CurrentScene = rl.LoadRenderTexture(WIDTH, HEIGHT)
 }
 func UnLoadRT2d() {
 	rl.UnloadRenderTexture(rt2Post)
