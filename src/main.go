@@ -2,6 +2,7 @@ package src
 
 import (
 	"fmt"
+	"oprc_core/src/components"
 	"oprc_core/src/scene"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
@@ -31,6 +32,7 @@ func setUp() {
 
 	WIDTH = int32(rl.GetScreenWidth())
 	HEIGHT = int32(rl.GetScreenHeight())
+	components.Load()
 	LoadRT2d()
 
 	Seq.Add(func() {
