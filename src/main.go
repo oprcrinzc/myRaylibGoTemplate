@@ -2,7 +2,6 @@ package src
 
 import (
 	"fmt"
-	"oprc_core/src/components"
 	"oprc_core/src/scene"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
@@ -32,7 +31,7 @@ func setUp() {
 
 	WIDTH = int32(rl.GetScreenWidth())
 	HEIGHT = int32(rl.GetScreenHeight())
-	components.Load()
+	LoadFont()
 	LoadRT2d()
 
 	Seq.Add(func() {
@@ -51,7 +50,7 @@ func setUp() {
 			HEIGHT = int32(rl.GetScreenHeight())
 		}
 		ReLoadRT2d()
-		fmt.Printf("w:%v h:%v w/h:%v 16/9:%v e:%t\n", WIDTH, HEIGHT, float32(WIDTH)/float32(HEIGHT), 16.0/9.0, float32(WIDTH)/float32(HEIGHT) == 16.0/9.0)
+		// fmt.Printf("w:%v h:%v w/h:%v 16/9:%v e:%t\n", WIDTH, HEIGHT, float32(WIDTH)/float32(HEIGHT), 16.0/9.0, float32(WIDTH)/float32(HEIGHT) == 16.0/9.0)
 		// fmt.Printf("%v %v | %v | %v %v \n", int(float32(WIDTH)*lmmm), int(float32(HEIGHT)*lmmm), lmmm, lm, lmm)
 	})
 }
@@ -63,7 +62,7 @@ func gameLoop() {
 		Seq.Run()
 
 		rl.BeginTextureMode(rt2CurrentScene)
-		scene.FromState(state, WIDTH, HEIGHT)
+		scene.FromState(&state, WIDTH, HEIGHT)
 		rl.EndTextureMode()
 
 		rl.BeginDrawing()

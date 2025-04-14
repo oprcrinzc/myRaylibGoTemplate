@@ -10,7 +10,7 @@ var bgMainMenu *rl.Texture2D = new(rl.Texture2D)
 
 func mainMenuLoad() {
 	*bgMainMenu = rl.LoadTexture("./assets/images/cover2.jpg")
-	components.Load()
+	// Load()
 }
 
 func MainMenu() {
@@ -28,5 +28,8 @@ func MainMenu() {
 	rl.DrawTextureEx(*bgMainMenu, origin, 0, ss, rl.White)
 
 	btn := components.Button{}
-	btn.Make("Config", 200, 100, rl.Vector2Add(rl.NewVector2(50, 50), origin)).Draw()
+	btn.Make("Config", 200, 100, rl.Vector2Add(rl.NewVector2(50, 50), origin)).SetFunc(
+		func(self *components.Button) {
+			*STATE = 0
+		}).Draw()
 }

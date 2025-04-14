@@ -1,12 +1,12 @@
 package main
 
 import (
-	"oprc_core/src"
+	t "oprc_core/src/types"
 	"testing"
 )
 
-func TestLoadConfig(t *testing.T) {
-	cf := src.Config{}
+func TestLoadConfig(T *testing.T) {
+	cf := t.Config{}
 	cf.LoadConfig()
-	t.Logf("%v", cf)
+	T.Logf("%v", cf)
 }

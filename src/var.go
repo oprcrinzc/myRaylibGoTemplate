@@ -1,105 +1,21 @@
 package src
 
 import (
-	"fmt"
-	"os"
+	t "oprc_core/src/types"
 
-	"github.com/BurntSushi/toml"
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
-
-type (
-	WindowConfig struct {
-		Flag   uint32 `toml:"flag"`
-		Width  int32  `toml:"width"`
-		Height int32  `toml:"height"`
-		Title  string `toml:"title"`
-	}
-	KeyMapConfig struct {
-		Up      int `toml:"up"`
-		Down    int `toml:"down"`
-		Left    int `toml:"left"`
-		Right   int `toml:"right"`
-		In      int `toml:"in"`
-		Out     int `toml:"out"`
-		Confirm int `toml:"confirm"`
-		Cancel  int `toml:"cancel"`
-		Back    int `toml:"back"`
-		Forward int `toml:"forward"`
-	}
-	SoundConfig struct {
-		Main        uint8 `toml:"main"`
-		Music       uint8 `toml:"music"`
-		Action      uint8 `toml:"action"`
-		Environment uint8 `toml:"environment"`
-		People      uint8 `toml:"people"`
-		Animal      uint8 `toml:"animal"`
-	}
-
-	Config struct {
-		// struct field tags
-		Debug      bool         `toml:"debug"`
-		GameCursor bool         `toml:"gameCursor"`
-		Fullscreen bool         `toml:"fullscreen"`
-		Sound      SoundConfig  `toml:"sound"`
-		Fps        int32        `toml:"fps"`
-		Window     WindowConfig `toml:"window"`
-		KeyMap     KeyMapConfig `toml:"keymap"`
-		Lang       string       `toml:"lang"`
-	}
-)
-
-type SequenceFunc []func()
-
-func (s *SequenceFunc) Add(f func()) *SequenceFunc {
-	*s = append(*s, f)
-	return s
-}
-func (s *SequenceFunc) Run() *SequenceFunc {
-	for _, f := range *s {
-		f()
-	}
-	return s
-}
-func (s *SequenceFunc) Size() (i int) {
-	for range *s {
-		i++
-	}
-	return
-}
-func (s *SequenceFunc) String() (t string) {
-	t += fmt.Sprintf("+ Sequence --- %d\n", s.Size())
-	return
-}
 
 func CreateWindow(width, height, fps int32, title string, configFlag uint32) {
 	rl.SetConfigFlags(configFlag)
 	rl.InitWindow(width, height, title)
 	rl.SetTargetFPS(fps)
 }
-func (c *Config) LoadConfig() {
-	var config Config
-	d, err := os.Getwd()
-	if err != nil {
-		panic(err)
-	}
-
-	// d = d[:len(d)-3]
-	_, err = toml.DecodeFile(d+"/config.toml", &config)
-	if err != nil {
-		panic(err)
-	}
-	*c = config
-	fmt.Println("Loaded: Config")
-	if c.Debug {
-		fmt.Println(config)
-	}
-}
 
 var rt2Post rl.RenderTexture2D
 var rt2CurrentScene rl.RenderTexture2D
 
-var cfg *Config = new(Config)
+var cfg *t.Config = new(t.Config)
 var WIDTH int32
 var HEIGHT int32
 var ISFULLSCREEN bool = false
@@ -119,4 +35,28 @@ func ReLoadRT2d() {
 	LoadRT2d()
 }
 
-var Seq *SequenceFunc = new(SequenceFunc)
+var FontMed128 rl.Font
+var FontMed64 rl.Font
+var FontMed32 rl.Font
+var FontMed16 rl.Font
+
+var FontPacks map[string]t.FontPack = make(map[string]t.FontPack)
+
+func LoadFont() {
+	FontMed128 = rl.LoadFontEx("./assets/fonts/Prompt/Prompt-Medium.ttf", 128, nil, 0)
+	FontMed64 = rl.LoadFontEx("./assets/fonts/Prompt/Prompt-Medium.ttf", 64, nil, 0)
+	FontMed32 = rl.LoadFontEx("./assets/fonts/Prompt/Prompt-Medium.ttf", 32, nil, 0)
+	FontMed16 = rl.LoadFontEx("./assets/fonts/Prompt/Prompt-Medium.ttf", 16, nil, 0)
+	FontPacks["med128"] = t.FontPack{Font: FontMed128, Size: 128, Spacing: 4}
+	FontPacks["med64"] = t.FontPack{Font: FontMed128, Size: 64, Spacing: 4}
+	FontPacks["med32"] = t.FontPack{Font: FontMed128, Size: 32, Spacing: 4}
+	FontPacks["med16"] = t.FontPack{Font: FontMed128, Size: 16, Spacing: 4}
+}
+func UnLoadFont() {
+	rl.UnloadFont(FontMed128)
+	rl.UnloadFont(FontMed64)
+	rl.UnloadFont(FontMed32)
+	rl.UnloadFont(FontMed16)
+}
+
+var Seq *t.SequenceFunc = new(t.SequenceFunc)
