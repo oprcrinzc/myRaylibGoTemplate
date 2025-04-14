@@ -10,10 +10,10 @@ import (
 
 type (
 	WindowConfig struct {
-		Title  string `toml:"title"`
+		Flag   uint32 `toml:"flag"`
 		Width  int32  `toml:"width"`
 		Height int32  `toml:"height"`
-		Flag   uint32 `toml:"flag"`
+		Title  string `toml:"title"`
 	}
 	KeyMapConfig struct {
 		Up      int `toml:"up"`
@@ -38,22 +38,47 @@ type (
 
 	Config struct {
 		// struct field tags
-		Window     WindowConfig `toml:"window"`
-		KeyMap     KeyMapConfig `toml:"keymap"`
-		Sound      SoundConfig  `toml:"sound"`
-		Fps        int32        `toml:"fps"`
-		Lang       string       `toml:"lang"`
+		Debug      bool         `toml:"debug"`
 		GameCursor bool         `toml:"gameCursor"`
 		Fullscreen bool         `toml:"fullscreen"`
+		Sound      SoundConfig  `toml:"sound"`
+		Fps        int32        `toml:"fps"`
+		Window     WindowConfig `toml:"window"`
+		KeyMap     KeyMapConfig `toml:"keymap"`
+		Lang       string       `toml:"lang"`
 	}
 )
+
+type SequenceFunc []func()
+
+func (s *SequenceFunc) Add(f func()) *SequenceFunc {
+	*s = append(*s, f)
+	return s
+}
+func (s *SequenceFunc) Run() *SequenceFunc {
+	for _, f := range *s {
+		f()
+	}
+	return s
+}
+func (s *SequenceFunc) Size() (i int) {
+	for range *s {
+		i++
+	}
+	return
+}
+func (s *SequenceFunc) String() (t string) {
+	t += fmt.Sprintf("+ Sequence --- %d\n", s.Size())
+	return
+}
 
 func CreateWindow(width, height, fps int32, title string, configFlag uint32) {
 	rl.SetConfigFlags(configFlag)
 	rl.InitWindow(width, height, title)
 	rl.SetTargetFPS(fps)
 }
-func (c *Config) LoadConfig() (config Config) {
+func (c *Config) LoadConfig() {
+	var config Config
 	d, err := os.Getwd()
 	if err != nil {
 		panic(err)
@@ -64,7 +89,31 @@ func (c *Config) LoadConfig() (config Config) {
 	if err != nil {
 		panic(err)
 	}
+	*c = config
 	fmt.Println("Loaded: Config")
-	fmt.Println(config)
-	return
+	if c.Debug {
+		fmt.Println(config)
+	}
 }
+
+var rt2Post rl.RenderTexture2D
+var rt2CurrentScene rl.RenderTexture2D
+
+var cfg *Config = new(Config)
+
+// var state int = 0
+
+func LoadRT2d() {
+	rt2Post = rl.LoadRenderTexture(cfg.Window.Width, cfg.Window.Height)
+	rt2CurrentScene = rl.LoadRenderTexture(cfg.Window.Width, cfg.Window.Height)
+}
+func UnLoadRT2d() {
+	rl.UnloadRenderTexture(rt2Post)
+	rl.UnloadRenderTexture(rt2CurrentScene)
+}
+func ReLoadRT2d() {
+	UnLoadRT2d()
+	LoadRT2d()
+}
+
+var Seq *SequenceFunc = new(SequenceFunc)
