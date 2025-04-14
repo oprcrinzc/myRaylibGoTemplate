@@ -22,7 +22,7 @@ func setUp() {
 	} else {
 		fmt.Print("+ --- Raylib --- +\n")
 	}
-	CreateWindow(cfg.Window.Width, cfg.Window.Height, cfg.Fps, cfg.Window.Title, cfg.Window.Flag|rl.FlagWindowResizable)
+	CreateWindow(cfg.Window.Width, cfg.Window.Height, cfg.Fps, cfg.Window.Title, (cfg.Window.Flag&^rl.FlagFullscreenMode)|rl.FlagWindowResizable)
 	rl.SetExitKey(rl.KeyNull)
 	LoadRT2d()
 

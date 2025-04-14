@@ -8,7 +8,7 @@ debug=true
 title = "The Game"
 width=1920
 height=1080
-flag=0x00000000
+flag=0x00000002 # becareful of 2
 
 [keymap] # no controller support yet
 up = 2
