@@ -26,6 +26,12 @@ func MainMenu() {
 
 	rl.DrawTextureEx(*bgMainMenu, origin, 0, ss, rl.White)
 
+	btn1 := components.Button{FontPack: FONTPACKS["med64"]}
+	btn1.Make("Enter", 200, 100, rl.Vector2Add(rl.NewVector2(50, float32(H-150)-130), origin)).SetFunc(
+		func(self *components.Button) {
+			global.State = 1
+		}).Draw()
+
 	btn := components.Button{FontPack: FONTPACKS["med64"]}
 	btn.Make("Exit", 200, 100, rl.Vector2Add(rl.NewVector2(50, float32(H-150)), origin)).SetFunc(
 		func(self *components.Button) {
