@@ -39,25 +39,7 @@ func setUp() {
 
 	scene.FONTPACKS = global.FontPacks
 
-	global.Seq.Add(func() {
-		if rl.IsKeyPressed(rl.KeyF11) {
-			global.WIDTH = int32(rl.GetMonitorWidth(rl.GetCurrentMonitor()))
-			global.HEIGHT = int32(rl.GetMonitorHeight(rl.GetCurrentMonitor()))
-			rl.ToggleFullscreen()
-			global.ISFULLSCREEN = !global.ISFULLSCREEN
-		}
-	}).Add(func() {
-		if global.ISFULLSCREEN {
-			global.WIDTH = int32(rl.GetMonitorWidth(rl.GetCurrentMonitor()))
-			global.HEIGHT = int32(rl.GetMonitorHeight(rl.GetCurrentMonitor()))
-		} else {
-			global.WIDTH = int32(rl.GetScreenWidth())
-			global.HEIGHT = int32(rl.GetScreenHeight())
-		}
-		global.ReLoadRT2d()
-		// fmt.Printf("w:%v h:%v w/h:%v 16/9:%v e:%t\n", WIDTH, HEIGHT, float32(WIDTH)/float32(HEIGHT), 16.0/9.0, float32(WIDTH)/float32(HEIGHT) == 16.0/9.0)
-		// fmt.Printf("%v %v | %v | %v %v \n", int(float32(WIDTH)*lmmm), int(float32(HEIGHT)*lmmm), lmmm, lm, lmm)
-	})
+	global.Seq.Add(global.ToggleFullscreenLogic).Add(global.ReLoadRT2dLogic)
 }
 
 func gameLoop() {
@@ -66,9 +48,7 @@ func gameLoop() {
 	for !rl.WindowShouldClose() && !global.WantExit {
 		global.Seq.Run()
 
-		rl.BeginTextureMode(global.Rt2CurrentScene)
 		scene.FromState(&global.State, global.WIDTH, global.HEIGHT)
-		rl.EndTextureMode()
 
 		rl.BeginDrawing()
 		rl.ClearScreenBuffers()

@@ -64,3 +64,23 @@ func ReLoadRT2d() {
 	UnLoadRT2d()
 	LoadRT2d()
 }
+
+func ToggleFullscreenLogic() {
+	if rl.IsKeyPressed(rl.KeyF11) {
+		WIDTH = int32(rl.GetMonitorWidth(rl.GetCurrentMonitor()))
+		HEIGHT = int32(rl.GetMonitorHeight(rl.GetCurrentMonitor()))
+		rl.ToggleFullscreen()
+		ISFULLSCREEN = !ISFULLSCREEN
+	}
+}
+
+func ReLoadRT2dLogic() {
+	if ISFULLSCREEN {
+		WIDTH = int32(rl.GetMonitorWidth(rl.GetCurrentMonitor()))
+		HEIGHT = int32(rl.GetMonitorHeight(rl.GetCurrentMonitor()))
+	} else {
+		WIDTH = int32(rl.GetScreenWidth())
+		HEIGHT = int32(rl.GetScreenHeight())
+	}
+	ReLoadRT2d()
+}

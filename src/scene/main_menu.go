@@ -18,13 +18,10 @@ func MainMenu() {
 	if bgMainMenu.Width == 0 {
 		mainMenuLoad()
 	}
-	// rl.ClearBackground(rl.Black)
+	rl.BeginTextureMode(global.Rt2CurrentScene)
 	rl.ClearScreenBuffers()
-	// rl.DrawTexture(img, 0, 0, rl.White)
-	ss := (float32(W)/float32(bgMainMenu.Width) + float32(H)/float32(bgMainMenu.Height)) / 2
-	// ss := (float32(W) / float32(bgMainMenu.Width)) / 1
 
-	// fmt.Printf("%v %v %v %v", bgMainMenu.Height, H, W, ss)
+	ss := (float32(W)/float32(bgMainMenu.Width) + float32(H)/float32(bgMainMenu.Height)) / 2
 	origin := rl.NewVector2((float32(W)-(float32(bgMainMenu.Width)*ss))/2, 0)
 
 	rl.DrawTextureEx(*bgMainMenu, origin, 0, ss, rl.White)
@@ -34,4 +31,6 @@ func MainMenu() {
 		func(self *components.Button) {
 			global.WantExit = true
 		}).Draw()
+
+	rl.EndTextureMode()
 }
