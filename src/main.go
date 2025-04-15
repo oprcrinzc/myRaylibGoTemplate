@@ -2,6 +2,7 @@ package src
 
 import (
 	"fmt"
+	"oprc_core/src/global"
 	"oprc_core/src/scene"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
@@ -62,7 +63,7 @@ func setUp() {
 func gameLoop() {
 	defer rl.CloseWindow()
 	defer UnLoadRT2d()
-	for !rl.WindowShouldClose() {
+	for !rl.WindowShouldClose() && !global.WantExit {
 		Seq.Run()
 
 		rl.BeginTextureMode(rt2CurrentScene)

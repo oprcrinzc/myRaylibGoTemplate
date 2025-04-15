@@ -40,8 +40,24 @@ func (b *Button) Do() *Button {
 	return b
 }
 func (b *Button) Draw() {
+	MOUSEPOS = rl.GetMousePosition()
+	// check hover
 
-	rl.DrawRectangle(int32(b.Pos.X), int32(b.Pos.Y), b.Width, b.Height, rl.Pink)
+	if MOUSEPOS.X >= b.Pos.X && MOUSEPOS.X <= b.Pos.X+float32(b.Width) &&
+		MOUSEPOS.Y >= b.Pos.Y && MOUSEPOS.Y <= b.Pos.Y+float32(b.Height) {
+		b.IsHover = true
+	} else {
+		b.IsHover = false
+	}
+	col := rl.Pink
+	if b.IsHover {
+		col = rl.Beige
+		if rl.IsMouseButtonDown(rl.MouseButtonLeft) {
+			b.Do()
+		}
+	}
+	rl.DrawRectangle(int32(b.Pos.X), int32(b.Pos.Y), b.Width, b.Height, col)
+
 	ts := rl.MeasureTextEx(b.FontPack.Font, b.Text, float32(b.FontPack.Size), float32(b.FontPack.Spacing))
 	tp := rl.NewVector2(
 		b.Pos.X-ts.X/2+float32(b.Width)/2,
