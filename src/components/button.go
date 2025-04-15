@@ -1,7 +1,7 @@
 package components
 
 import (
-	t "oprc_core/src/types"
+	t "oprc_core/src/ot"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
 )

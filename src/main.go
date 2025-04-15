@@ -15,46 +15,46 @@ func Call() {
 }
 
 func loadCfg() {
-	cfg.LoadConfig()
+	global.Cfg.LoadConfig()
 }
 
 func setUp() {
 	// lww := 0
-	if !cfg.Debug {
+	if !global.Cfg.Debug {
 		rl.SetTraceLogLevel(rl.LogFatal)
 	} else {
 		fmt.Print("+ --- Raylib --- +\n")
 	}
 	// |rl.FlagWindowResizable
-	CreateWindow(cfg.Window.Width, cfg.Window.Height, cfg.Fps, cfg.Window.Title,
-		(cfg.Window.Flag&^rl.FlagFullscreenMode)|rl.FlagMsaa4xHint)
-	rl.SetWindowMinSize(int(cfg.Window.Width), int(cfg.Window.Height))
+	global.CreateWindow(global.Cfg.Window.Width, global.Cfg.Window.Height, global.Cfg.Fps, global.Cfg.Window.Title,
+		(global.Cfg.Window.Flag&^rl.FlagFullscreenMode)|rl.FlagMsaa4xHint)
+	rl.SetWindowMinSize(int(global.Cfg.Window.Width), int(global.Cfg.Window.Height))
 	rl.SetExitKey(rl.KeyNull)
 
-	WIDTH = int32(rl.GetScreenWidth())
-	HEIGHT = int32(rl.GetScreenHeight())
+	global.WIDTH = int32(rl.GetScreenWidth())
+	global.HEIGHT = int32(rl.GetScreenHeight())
 
-	LoadFont()
-	LoadRT2d()
+	global.LoadFont()
+	global.LoadRT2d()
 
-	scene.FONTPACKS = FontPacks
+	scene.FONTPACKS = global.FontPacks
 
-	Seq.Add(func() {
+	global.Seq.Add(func() {
 		if rl.IsKeyPressed(rl.KeyF11) {
-			WIDTH = int32(rl.GetMonitorWidth(rl.GetCurrentMonitor()))
-			HEIGHT = int32(rl.GetMonitorHeight(rl.GetCurrentMonitor()))
+			global.WIDTH = int32(rl.GetMonitorWidth(rl.GetCurrentMonitor()))
+			global.HEIGHT = int32(rl.GetMonitorHeight(rl.GetCurrentMonitor()))
 			rl.ToggleFullscreen()
-			ISFULLSCREEN = !ISFULLSCREEN
+			global.ISFULLSCREEN = !global.ISFULLSCREEN
 		}
 	}).Add(func() {
-		if ISFULLSCREEN {
-			WIDTH = int32(rl.GetMonitorWidth(rl.GetCurrentMonitor()))
-			HEIGHT = int32(rl.GetMonitorHeight(rl.GetCurrentMonitor()))
+		if global.ISFULLSCREEN {
+			global.WIDTH = int32(rl.GetMonitorWidth(rl.GetCurrentMonitor()))
+			global.HEIGHT = int32(rl.GetMonitorHeight(rl.GetCurrentMonitor()))
 		} else {
-			WIDTH = int32(rl.GetScreenWidth())
-			HEIGHT = int32(rl.GetScreenHeight())
+			global.WIDTH = int32(rl.GetScreenWidth())
+			global.HEIGHT = int32(rl.GetScreenHeight())
 		}
-		ReLoadRT2d()
+		global.ReLoadRT2d()
 		// fmt.Printf("w:%v h:%v w/h:%v 16/9:%v e:%t\n", WIDTH, HEIGHT, float32(WIDTH)/float32(HEIGHT), 16.0/9.0, float32(WIDTH)/float32(HEIGHT) == 16.0/9.0)
 		// fmt.Printf("%v %v | %v | %v %v \n", int(float32(WIDTH)*lmmm), int(float32(HEIGHT)*lmmm), lmmm, lm, lmm)
 	})
@@ -62,18 +62,18 @@ func setUp() {
 
 func gameLoop() {
 	defer rl.CloseWindow()
-	defer UnLoadRT2d()
+	defer global.UnLoadRT2d()
 	for !rl.WindowShouldClose() && !global.WantExit {
-		Seq.Run()
+		global.Seq.Run()
 
-		rl.BeginTextureMode(rt2CurrentScene)
-		scene.FromState(&state, WIDTH, HEIGHT)
+		rl.BeginTextureMode(global.Rt2CurrentScene)
+		scene.FromState(&global.State, global.WIDTH, global.HEIGHT)
 		rl.EndTextureMode()
 
 		rl.BeginDrawing()
 		rl.ClearScreenBuffers()
-		rl.DrawTexturePro(rt2CurrentScene.Texture, rl.NewRectangle(0, 0, float32(WIDTH), -float32(HEIGHT)),
-			rl.NewRectangle(0, 0, float32(WIDTH), float32(HEIGHT)), rl.NewVector2(float32(WIDTH)-float32(rt2CurrentScene.Texture.Width), 0), 0, rl.White)
+		rl.DrawTexturePro(global.Rt2CurrentScene.Texture, rl.NewRectangle(0, 0, float32(global.WIDTH), -float32(global.HEIGHT)),
+			rl.NewRectangle(0, 0, float32(global.WIDTH), float32(global.HEIGHT)), rl.NewVector2(float32(global.WIDTH)-float32(global.Rt2CurrentScene.Texture.Width), 0), 0, rl.White)
 		rl.EndDrawing()
 	}
 }

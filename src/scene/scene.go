@@ -1,6 +1,6 @@
 package scene
 
-import t "oprc_core/src/types"
+import t "oprc_core/src/ot"
 
 var W int32
 var H int32

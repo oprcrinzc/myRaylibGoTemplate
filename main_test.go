@@ -2,14 +2,14 @@ package main
 
 import (
 	"oprc_core/src/global"
-	"oprc_core/src/types"
+	"oprc_core/src/ot"
 	"testing"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
 
 func TestLoadConfig(t *testing.T) {
-	cf := types.Config{}
+	cf := ot.Config{}
 	cf.LoadConfig()
 	if cf.Fps <= 0 {
 		t.Fail()
