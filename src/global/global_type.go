@@ -191,7 +191,9 @@ type (
 
 type (
 	Player struct {
-		Name string
+		Name       string
+		MouseLayer int32
+		MouseHover bool
 	}
 )
 
