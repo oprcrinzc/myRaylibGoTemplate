@@ -1,7 +1,7 @@
 package components
 
 import (
-	t "oprc_core/src/ot"
+	"oprc_core/src/global"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
@@ -14,7 +14,7 @@ type (
 		Func     func(self *Button)
 		Width    int32
 		Height   int32
-		FontPack t.FontPack
+		FontPack global.FontPack
 	}
 	Drawable interface {
 		Draw()
