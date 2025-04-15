@@ -26,6 +26,7 @@ type (
 		Cancel  int `toml:"cancel"`
 		Back    int `toml:"back"`
 		Forward int `toml:"forward"`
+		Close   int `toml:"close"`
 	}
 	SoundConfig struct {
 		Main        uint8 `toml:"main"`
@@ -191,5 +192,10 @@ type (
 type (
 	Player struct {
 		Name string
+	}
+)
+
+type (
+	InputSystem struct {
 	}
 )

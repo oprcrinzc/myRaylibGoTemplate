@@ -6,21 +6,22 @@ debug=false
 
 [window]
 title = "The Game"
-width=1280
-height=720
+width=1600
+height=900
 flag=0x00000004 
 
 [keymap] # no controller support yet
-up = 2
-down = 2
-left = 2
-right = 2
-in = 2
-out = 2
-confirm = 2
-cancel = 2
-back = 1 # mouse 4 
-forward = 2 # mouse 5 
+up = 87 # w 
+down = 83 # s
+left = 65 # a
+right = 68 # d
+in = 81 # q
+out = 69 # e
+confirm = 257 # enter
+cancel = 340 # left shift
+back = 259 # backspace or mouse 4 
+forward = 92 # backslash or mouse 5 
+close = 259 # esc
 
 [sound]# 0,100
 main=100 
