@@ -10,7 +10,7 @@ import (
 var bgMainMenu *rl.Texture2D = new(rl.Texture2D)
 
 func mainMenuLoad() {
-	*bgMainMenu = rl.LoadTexture("./assets/images/cover2.jpg")
+	*bgMainMenu = rl.LoadTexture("./assets/images/MainMenuBG.JPG")
 	// Load()
 }
 
