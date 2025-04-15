@@ -65,18 +65,18 @@ func (b *Button) Draw() {
 	if MOUSEPOS.X >= b.Pos.X && MOUSEPOS.X <= b.Pos.X+float32(b.Width) &&
 		MOUSEPOS.Y >= b.Pos.Y && MOUSEPOS.Y <= b.Pos.Y+float32(b.Height) &&
 		global.PlayerA.MouseLayer == b.Layer && !b.disabled {
-		rl.SetMouseCursor(rl.MouseCursorPointingHand)
 		b.IsHover = true
 	} else {
-		rl.SetMouseCursor(rl.MouseCursorDefault)
 		b.IsHover = false
 	}
 
 	col := rl.Pink
 	if b.IsHover {
+		global.PlayerA.AddHover(b.IsHover)
 		col = rl.Beige
-		if rl.IsMouseButtonDown(rl.MouseButtonLeft) {
+		if rl.IsMouseButtonDown(rl.MouseButtonLeft) && global.PlayerA.CanClick {
 			b.Do()
+			global.PlayerA.CanClick = false
 		}
 	}
 	rl.DrawRectangle(int32(b.Pos.X), int32(b.Pos.Y), b.Width, b.Height, col)

@@ -26,7 +26,8 @@ func setUp() {
 		fmt.Print("+ --- Raylib --- +\n")
 	}
 	// |rl.FlagWindowResizable
-	global.CreateWindow(global.Cfg.Window.Width, global.Cfg.Window.Height, global.Cfg.Fps, global.Cfg.Window.Title,
+	global.CreateWindow(global.Cfg.Window.Width, global.Cfg.Window.Height,
+		global.Cfg.Fps, global.Cfg.Window.Title,
 		(global.Cfg.Window.Flag&^rl.FlagFullscreenMode)|rl.FlagMsaa4xHint)
 	rl.SetWindowMinSize(int(global.Cfg.Window.Width), int(global.Cfg.Window.Height))
 	rl.SetExitKey(rl.KeyNull)
@@ -36,10 +37,14 @@ func setUp() {
 
 	global.LoadFont()
 	global.LoadRT2d()
+	global.LoadPlayer()
 
 	scene.FONTPACKS = global.FontPacks
 
-	global.Seq.Add(global.ToggleFullscreenLogic).Add(global.ReLoadRT2dLogic)
+	global.Seq.
+		Add(global.ToggleFullscreenLogic).
+		Add(global.ReLoadRT2dLogic).
+		Add(global.PlayerA.Update)
 }
 
 func gameLoop() {

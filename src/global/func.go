@@ -83,3 +83,7 @@ func ReLoadRT2dLogic() {
 	}
 	ReLoadRT2d()
 }
+
+func LoadPlayer() {
+	PlayerA.Born("Name")
+}

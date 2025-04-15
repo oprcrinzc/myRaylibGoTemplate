@@ -9,6 +9,11 @@ import (
 )
 
 type (
+	InputSystem struct {
+	}
+)
+
+type (
 	WindowConfig struct {
 		Flag   uint32 `toml:"flag"`
 		Width  int32  `toml:"width"`
@@ -193,11 +198,44 @@ type (
 	Player struct {
 		Name       string
 		MouseLayer int32
-		MouseHover bool
+		hovers     []bool
+		CanClick   bool
 	}
 )
 
-type (
-	InputSystem struct {
+func (p *Player) Born(n string) *Player {
+	p.Name = n
+	p.MouseLayer = 0
+	p.hovers = []bool{}
+	p.CanClick = false
+	return p
+}
+
+func (p *Player) AddHover(b bool) *Player {
+	p.hovers = append(p.hovers, b)
+	return p
+}
+
+func (p *Player) Update() {
+	hoverTrueCount := 0
+	for _, t := range p.hovers {
+		if t {
+			hoverTrueCount++
+		}
 	}
+	if hoverTrueCount > 0 && !rl.IsMouseButtonDown(rl.MouseButtonLeft) {
+		p.CanClick = true
+	} else if hoverTrueCount <= 0 && rl.IsMouseButtonDown(rl.MouseButtonLeft) {
+		p.CanClick = false
+	}
+	if hoverTrueCount > 0 && p.CanClick {
+		rl.SetMouseCursor(rl.MouseCursorPointingHand)
+	} else {
+		rl.SetMouseCursor(rl.MouseCursorDefault)
+	}
+	p.hovers = []bool{}
+}
+
+type (
+	Updatable interface{ Update() }
 )
