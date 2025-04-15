@@ -49,6 +49,7 @@ func (b *Button) Draw() {
 	} else {
 		b.IsHover = false
 	}
+
 	col := rl.Pink
 	if b.IsHover {
 		col = rl.Beige

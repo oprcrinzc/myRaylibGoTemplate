@@ -34,10 +34,4 @@ func MainMenu() {
 		func(self *components.Button) {
 			global.WantExit = true
 		}).Draw()
-
-	btn2 := components.Button{FontPack: FONTPACKS["med64"]}
-	btn2.Make("Exit", 200, 100, rl.Vector2Add(rl.NewVector2(400, 50), origin)).SetFunc(
-		func(self *components.Button) {
-			rl.CloseWindow()
-		}).Draw()
 }

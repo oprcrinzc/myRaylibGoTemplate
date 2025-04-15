@@ -62,8 +62,8 @@ func (c *Config) LoadConfig() {
 		panic(err)
 	}
 	*c = config
-	fmt.Println("Loaded: Config")
 	if c.Debug {
+		fmt.Println("Loaded: Config")
 		fmt.Println(config)
 	}
 }
