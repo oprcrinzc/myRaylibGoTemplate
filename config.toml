@@ -24,7 +24,7 @@ forward = 92 # backslash or mouse 5
 close = 259 # esc
 
 [sound]# 0,100
-main=100 
+main=0 
 music=100 
 action=100 
 environment=100

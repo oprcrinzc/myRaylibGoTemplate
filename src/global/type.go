@@ -239,3 +239,33 @@ func (p *Player) Update() {
 type (
 	Updatable interface{ Update() }
 )
+
+type (
+	SoundSys struct {
+		Sounds map[string]map[string]rl.Sound
+		Music  []rl.Music
+	}
+)
+
+func (s *SoundSys) SetVolume() {
+	main := float32(Cfg.Sound.Main) / 100.0
+	for _, i := range s.Sounds["Action"] {
+		rl.SetSoundVolume(i, main*float32(Cfg.Sound.Action)/100.0)
+	}
+	for _, i := range s.Sounds["Animal"] {
+		rl.SetSoundVolume(i, main*float32(Cfg.Sound.Animal)/100.0)
+	}
+	for _, i := range s.Sounds["Environment"] {
+		rl.SetSoundVolume(i, main*float32(Cfg.Sound.Environment)/100.0)
+	}
+	for _, i := range s.Sounds["People"] {
+		rl.SetSoundVolume(i, main*float32(Cfg.Sound.People)/100.0)
+	}
+	for _, i := range s.Music {
+		rl.SetMusicVolume(i, main*float32(Cfg.Sound.Music)/100.0)
+	}
+}
+
+// func (s *SoundSys) String() string {
+// 	return ""
+// }

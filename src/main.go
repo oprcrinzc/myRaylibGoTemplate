@@ -32,6 +32,8 @@ func setUp() {
 	rl.SetWindowMinSize(int(global.Cfg.Window.Width), int(global.Cfg.Window.Height))
 	rl.SetExitKey(rl.KeyNull)
 
+	rl.InitAudioDevice()
+
 	global.WIDTH = int32(rl.GetScreenWidth())
 	global.HEIGHT = int32(rl.GetScreenHeight())
 
@@ -41,15 +43,21 @@ func setUp() {
 
 	scene.FONTPACKS = global.FontPacks
 
+	s1 := rl.LoadMusicStream("./assets/audio/bgm0.wav")
+	rl.PlayMusicStream(s1)
 	global.Seq.
 		Add(global.ToggleFullscreenLogic).
 		Add(global.ReLoadRT2dLogic).
-		Add(global.PlayerA.Update)
+		Add(global.PlayerA.Update).
+		Add(func() { rl.UpdateMusicStream(s1) })
+
+	// rl.LoadAudioStream(441000, 24, 0)
 }
 
 func gameLoop() {
 	defer rl.CloseWindow()
 	defer global.UnLoadRT2d()
+
 	for !rl.WindowShouldClose() && !global.WantExit {
 		global.Seq.Run()
 
