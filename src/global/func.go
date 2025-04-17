@@ -87,3 +87,15 @@ func ReLoadRT2dLogic() {
 func LoadPlayer() {
 	PlayerA.Born("Name")
 }
+
+func RSO(w, h, tw, th int32) (s float32, o rl.Vector2) {
+	if h < w {
+		s = float32(w) / float32(th)
+	} else if w < h {
+		s = float32(h) / float32(tw)
+	} else if w == h {
+		s = (float32(w)/float32(th) + float32(h)/float32(tw)) / 2
+	}
+	o = rl.NewVector2(float32(w-tw)/2, float32(h-th)/2)
+	return
+}
