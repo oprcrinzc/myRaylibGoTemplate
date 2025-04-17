@@ -11,6 +11,7 @@ var bgMainMenu *rl.Texture2D = new(rl.Texture2D)
 
 func mainMenuLoad() {
 	*bgMainMenu = rl.LoadTexture("./assets/images/MainMenuBG.JPG")
+	// *bgMainMenu = rl.LoadTexture("./assets/images/test.jpg")
 	// Load()
 }
 
@@ -21,8 +22,10 @@ func MainMenu() {
 	rl.BeginTextureMode(global.Rt2CurrentScene)
 	rl.ClearScreenBuffers()
 
-	ss := (float32(W)/float32(bgMainMenu.Width) + float32(H)/float32(bgMainMenu.Height)) / 2
-	origin := rl.NewVector2((float32(W)-(float32(bgMainMenu.Width)*ss))/2, 0)
+	// ss := (float32(W)/float32(bgMainMenu.Width) + float32(H)/float32(bgMainMenu.Height)) / 2
+	// origin := rl.NewVector2((float32(W)-(float32(bgMainMenu.Width)*ss))/2, 0)
+
+	ss, origin := global.RSO(W, H, bgMainMenu.Width, bgMainMenu.Height)
 
 	rl.DrawTextureEx(*bgMainMenu, origin, 0, ss, rl.White)
 

@@ -1,6 +1,7 @@
 package global
 
 import (
+	"fmt"
 	"math"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
@@ -88,14 +89,28 @@ func LoadPlayer() {
 	PlayerA.Born("Name")
 }
 
-func RSO(w, h, tw, th int32) (s float32, o rl.Vector2) {
-	if h < w {
-		s = float32(w) / float32(th)
-	} else if w < h {
-		s = float32(h) / float32(tw)
-	} else if w == h {
-		s = (float32(w)/float32(th) + float32(h)/float32(tw)) / 2
+func DeltaD(a, b float32) float32 {
+	if a > b {
+		return a / b
 	}
-	o = rl.NewVector2(float32(w-tw)/2, float32(h-th)/2)
+	return b / a
+}
+
+func RSO(w, h, tw, th int32) (s float32, o rl.Vector2) {
+	var x1, x2 float32
+	x1 = float32(h) / float32(th)
+	x2 = float32(w) / float32(tw)
+	if float32(tw)*x1 > float32(w) || float32(th)*x1 > float32(h) {
+		s = x2
+	} else if float32(tw)*x2 > float32(w) || float32(th)*x2 > float32(h) {
+		s = x1
+	} else {
+		s = (x1 + x2) / 2
+	}
+
+	o = rl.NewVector2(
+		(float32(w)-float32(tw)*s)/2,
+		(float32(h)-float32(th)*s)/2)
+	fmt.Println("s:", s, " o:", o)
 	return
 }
