@@ -102,15 +102,16 @@ func RSO(w, h, tw, th int32) (s float32, o rl.Vector2) {
 	x2 = float32(w) / float32(tw)
 	if float32(tw)*x1 > float32(w) || float32(th)*x1 > float32(h) {
 		s = x2
-	} else if float32(tw)*x2 > float32(w) || float32(th)*x2 > float32(h) {
+	}
+	if float32(tw)*x2 > float32(w) || float32(th)*x2 > float32(h) {
 		s = x1
 	} else {
 		s = (x1 + x2) / 2
 	}
 
 	o = rl.NewVector2(
-		(float32(w)-float32(tw)*s)/2,
-		(float32(h)-float32(th)*s)/2)
-	fmt.Println("s:", s, " o:", o)
+		(float32((float64(w) - float64(tw)*float64(s))))/2,
+		(float32((float64(h) - float64(th)*float64(s))))/2)
+	fmt.Println(" x1:", x1, " x2:", x2, " s:", s, " o:", o)
 	return
 }

@@ -12,6 +12,8 @@ var bgMainMenu *rl.Texture2D = new(rl.Texture2D)
 func mainMenuLoad() {
 	*bgMainMenu = rl.LoadTexture("./assets/images/MainMenuBG.JPG")
 	// *bgMainMenu = rl.LoadTexture("./assets/images/test.jpg")
+	// *bgMainMenu = rl.LoadTexture("./assets/images/cover2.jpg")
+	// *bgMainMenu = rl.LoadTexture("./assets/images/Cover-2.jpg")
 	// Load()
 }
 
