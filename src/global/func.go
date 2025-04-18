@@ -89,6 +89,11 @@ func LoadPlayer() {
 	PlayerA.Born("Name")
 }
 
+func LoadSoundSys() {
+	rl.InitAudioDevice()
+	SoundA.Born()
+}
+
 func DeltaD(a, b float32) float32 {
 	if a > b {
 		return a / b

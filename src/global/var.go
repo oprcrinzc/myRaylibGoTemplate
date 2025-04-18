@@ -21,3 +21,4 @@ var State int = 1
 var Seq *SequenceFunc = new(SequenceFunc)
 
 var PlayerA Player
+var SoundA SoundSys

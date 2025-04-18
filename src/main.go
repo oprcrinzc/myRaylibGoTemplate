@@ -32,24 +32,26 @@ func setUp() {
 	rl.SetWindowMinSize(int(global.Cfg.Window.Width), int(global.Cfg.Window.Height))
 	rl.SetExitKey(rl.KeyNull)
 
-	rl.InitAudioDevice()
-
 	global.WIDTH = int32(rl.GetScreenWidth())
 	global.HEIGHT = int32(rl.GetScreenHeight())
 
 	global.LoadFont()
 	global.LoadRT2d()
 	global.LoadPlayer()
+	global.LoadSoundSys()
 
 	scene.FONTPACKS = global.FontPacks
 
-	s1 := rl.LoadMusicStream("./assets/audio/bgm0.wav")
-	rl.PlayMusicStream(s1)
+	// s1 := rl.LoadMusicStream("./assets/audio/bgm0.wav")
+	// rl.PlayMusicStream(s1)
+
+	global.SoundA.AddMusic("BGM0", "./assets/audio/bgm0.wav").SelectMusic("BGM0")
+
 	global.Seq.
 		Add(global.ToggleFullscreenLogic).
 		Add(global.ReLoadRT2dLogic).
 		Add(global.PlayerA.Update).
-		Add(func() { rl.UpdateMusicStream(s1) })
+		Add(global.SoundA.Update)
 
 	// rl.LoadAudioStream(441000, 24, 0)
 }
