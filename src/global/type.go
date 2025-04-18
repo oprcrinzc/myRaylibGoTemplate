@@ -243,7 +243,10 @@ type (
 type (
 	SoundSys struct {
 		Sounds map[string]map[string]rl.Sound
-		Music  []rl.Music
+		Music  map[string]rl.Music
+		sel    string
+		played bool
+		paused bool
 	}
 )
 
@@ -266,6 +269,47 @@ func (s *SoundSys) SetVolume() {
 	}
 }
 
-// func (s *SoundSys) String() string {
-// 	return ""
-// }
+func (s *SoundSys) Born() *SoundSys {
+	s.Sounds = make(map[string]map[string]rl.Sound)
+	s.Music = make(map[string]rl.Music)
+	s.played = false
+	return s
+}
+
+func (s *SoundSys) AddSound(g, n, f string) *SoundSys {
+	s.Sounds[g][n] = rl.LoadSound(f)
+	return s
+}
+
+func (s *SoundSys) AddMusic(n, f string) *SoundSys {
+	s.Music[n] = rl.LoadMusicStream(f)
+	return s
+}
+
+func (s *SoundSys) SelectMusic(f string) {
+	s.sel = f
+	s.played = false
+}
+
+func (s *SoundSys) Play(g, n string) {
+	rl.PlaySound(s.Sounds[g][n])
+}
+
+func (s *SoundSys) Update() {
+	if s.Music != nil {
+		m := s.Music[s.sel]
+		if !s.played {
+			rl.PlayMusicStream(m)
+			s.played = true
+		}
+		rl.UpdateMusicStream(m)
+	}
+}
+
+func (s *SoundSys) ToggleMusic() { // pause play music
+	if !s.paused {
+		rl.PauseMusicStream(s.Music[s.sel])
+	} else {
+		rl.ResumeMusicStream(s.Music[s.sel])
+	}
+}
