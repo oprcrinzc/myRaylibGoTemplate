@@ -34,6 +34,7 @@ type (
 		Forward int `toml:"forward"`
 		Close   int `toml:"close"`
 	}
+	KeyMap      map[string]int
 	SoundConfig struct {
 		Main        uint8 `toml:"main"`
 		Music       uint8 `toml:"music"`
@@ -51,7 +52,7 @@ type (
 		Sound      SoundConfig  `toml:"sound"`
 		Fps        int32        `toml:"fps"`
 		Window     WindowConfig `toml:"window"`
-		KeyMap     KeyMapConfig `toml:"keymap"`
+		KeyMapCon  KeyMapConfig `toml:"keymap"`
 		Lang       string       `toml:"lang"`
 	}
 )
