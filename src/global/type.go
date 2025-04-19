@@ -79,6 +79,8 @@ func (c *Config) LoadConfig() {
 	}
 }
 
+func (c *Config) SaveConfig()
+
 type SequenceFunc []func()
 
 func (s *SequenceFunc) Add(f func()) *SequenceFunc {
