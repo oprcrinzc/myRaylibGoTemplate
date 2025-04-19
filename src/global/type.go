@@ -79,7 +79,16 @@ func (c *Config) LoadConfig() {
 	}
 }
 
-func (c *Config) SaveConfig()
+func (c *Config) SaveConfig() {
+	b, err := toml.Marshal(c)
+	if err != nil {
+		panic(err)
+	}
+	err = os.WriteFile("config.toml", b, 0644) // rw-r--r--
+	if err != nil {
+		panic(err)
+	}
+}
 
 type SequenceFunc []func()
 

@@ -1,8 +1,8 @@
 package global
 
 import (
-	"fmt"
 	"math"
+	"strconv"
 
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
@@ -117,6 +117,18 @@ func RSO(w, h, tw, th int32) (s float32, o rl.Vector2) {
 	o = rl.NewVector2(
 		(float32((float64(w) - float64(tw)*float64(s))))/2,
 		(float32((float64(h) - float64(th)*float64(s))))/2)
-	fmt.Println(" x1:", x1, " x2:", x2, " s:", s, " o:", o)
+	// fmt.Println(" x1:", x1, " x2:", x2, " s:", s, " o:", o)
 	return
+}
+
+func CompareSliceByte(a, b []byte) bool {
+	s1 := ""
+	s2 := ""
+	for _, i := range a {
+		s1 += strconv.Itoa(int(i))
+	}
+	for _, i := range b {
+		s2 += strconv.Itoa(int(i))
+	}
+	return s1 == s2
 }
