@@ -2,10 +2,11 @@ package global
 
 import (
 	"fmt"
+	"io/fs"
 	"os"
 
-	"github.com/BurntSushi/toml"
 	rl "github.com/gen2brain/raylib-go/raylib"
+	"github.com/pelletier/go-toml/v2"
 )
 
 type (
@@ -63,7 +64,11 @@ func (c *Config) LoadConfig() {
 	}
 
 	// d = d[:len(d)-3]
-	_, err = toml.DecodeFile(d+"/config.toml", &config)
+	readf, err := fs.ReadFile(os.DirFS(d), "config.toml")
+	if err != nil {
+		panic(err)
+	}
+	err = toml.Unmarshal(readf, &config)
 	if err != nil {
 		panic(err)
 	}
