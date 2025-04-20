@@ -303,9 +303,10 @@ func (s *SoundSys) AddMusic(n, f string) *SoundSys {
 	return s
 }
 
-func (s *SoundSys) SelectMusic(f string) {
+func (s *SoundSys) SelectMusic(f string) *SoundSys {
 	s.sel = f
 	s.played = false
+	return s
 }
 
 func (s *SoundSys) Play(g, n string) {
@@ -319,6 +320,11 @@ func (s *SoundSys) Update() {
 			rl.PlayMusicStream(m)
 			s.played = true
 		}
+		if s.paused {
+			rl.PauseMusicStream(s.Music[s.sel])
+		} else {
+			rl.ResumeMusicStream(s.Music[s.sel])
+		}
 		rl.UpdateMusicStream(m)
 	}
 }
@@ -329,4 +335,18 @@ func (s *SoundSys) ToggleMusic() { // pause play music
 	} else {
 		rl.ResumeMusicStream(s.Music[s.sel])
 	}
+}
+
+func (s *SoundSys) Pause() { // pause play music
+	if !s.paused {
+		s.paused = true
+	}
+	// rl.PauseMusicStream(s.Music[s.sel])
+}
+
+func (s *SoundSys) Resume() {
+	if s.paused {
+		s.paused = false
+	}
+	// rl.ResumeMusicStream(s.Music[s.sel])
 }

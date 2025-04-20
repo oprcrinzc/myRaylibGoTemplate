@@ -18,7 +18,7 @@ func mainMenuLoad() {
 }
 
 func MainMenu() {
-	if bgMainMenu.Width == 0 {
+	if bgMainMenu.Width <= 0 {
 		mainMenuLoad()
 	}
 	rl.BeginTextureMode(global.Rt2CurrentScene)

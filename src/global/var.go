@@ -16,7 +16,7 @@ var WIDTH int32
 var HEIGHT int32
 var ISFULLSCREEN bool = false
 
-var State int = 1
+var State int = 0
 
 var Seq *SequenceFunc = new(SequenceFunc)
 

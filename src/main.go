@@ -45,7 +45,7 @@ func setUp() {
 	// s1 := rl.LoadMusicStream("./assets/audio/bgm0.wav")
 	// rl.PlayMusicStream(s1)
 
-	global.SoundA.AddMusic("BGM0", "./assets/audio/bgm0.wav").SelectMusic("BGM0")
+	global.SoundA.AddMusic("BGM0", "./assets/audio/bgm0.wav").SelectMusic("BGM0").Pause()
 
 	global.Seq.
 		Add(global.ToggleFullscreenLogic).
