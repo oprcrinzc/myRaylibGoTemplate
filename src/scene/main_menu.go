@@ -16,6 +16,9 @@ func mainMenuLoad() {
 	// *bgMainMenu = rl.LoadTexture("./assets/images/Cover-2.jpg")
 	// Load()
 }
+func mainMunuUnload() {
+	rl.UnloadTexture(*bgMainMenu)
+}
 
 func MainMenu() {
 	if bgMainMenu.Width <= 0 {
@@ -35,6 +38,7 @@ func MainMenu() {
 	btn1.Make("Enter", 200, 100, rl.Vector2Add(rl.NewVector2(50, float32(H-150)-130), origin)).SetFunc(
 		func(self *components.Button) {
 			global.State = 0
+			mainMunuUnload()
 		}).Draw()
 
 	btn := components.Button{FontPack: FONTPACKS["med64"]}

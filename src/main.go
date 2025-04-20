@@ -59,6 +59,7 @@ func setUp() {
 func gameLoop() {
 	defer rl.CloseWindow()
 	defer global.UnLoadRT2d()
+	defer global.UnLoadFont()
 
 	for !rl.WindowShouldClose() && !global.WantExit {
 		global.Seq.Run()

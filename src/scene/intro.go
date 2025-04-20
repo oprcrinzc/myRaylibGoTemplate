@@ -15,6 +15,9 @@ var logoAlpha float32
 func introLoad() {
 	*raylibgoLogo = rl.LoadTexture("./assets/images/raylibgo.png")
 }
+func introUnload() {
+	rl.UnloadTexture(*raylibgoLogo)
+}
 
 func Intro() {
 	if raylibgoLogo.Width <= 0 {
@@ -49,5 +52,6 @@ func Intro() {
 
 	if introTimeCount >= introTime {
 		global.State = 1
+		introUnload()
 	}
 }
