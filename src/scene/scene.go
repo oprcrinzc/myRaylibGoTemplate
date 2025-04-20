@@ -1,6 +1,9 @@
 package scene
 
-import "oprc_core/src/global"
+import (
+	"oprc_core/src/global"
+	gs "oprc_core/src/scene/game"
+)
 
 var W int32
 var H int32
@@ -16,6 +19,8 @@ func FromState(state *int, w, h int32) {
 		Intro()
 	case 1:
 		MainMenu()
+	case 2:
+		gs.Call(global.PlayerA.GameScene)
 
 	}
 }

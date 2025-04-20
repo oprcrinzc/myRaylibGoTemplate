@@ -217,6 +217,7 @@ type (
 		MouseLayer int32
 		hovers     []bool
 		CanClick   bool
+		GameScene  string
 	}
 )
 

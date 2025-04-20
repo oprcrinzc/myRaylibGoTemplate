@@ -37,7 +37,10 @@ func MainMenu() {
 	btn1 := components.Button{FontPack: FONTPACKS["med64"]}
 	btn1.Make("Enter", 200, 100, rl.Vector2Add(rl.NewVector2(50, float32(H-150)-130), origin)).SetFunc(
 		func(self *components.Button) {
-			global.State = 0
+			global.State = 2
+			if global.PlayerA.GameScene == "" {
+				global.PlayerA.GameScene = "inside store"
+			}
 			mainMunuUnload()
 		}).Draw()
 
