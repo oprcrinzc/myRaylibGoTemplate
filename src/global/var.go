@@ -22,3 +22,5 @@ var Seq *SequenceFunc = new(SequenceFunc)
 
 var PlayerA Player
 var SoundA SoundSys
+
+var AppIcon rl.Image

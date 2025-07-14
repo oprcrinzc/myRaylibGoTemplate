@@ -19,6 +19,8 @@ func loadCfg() {
 }
 
 func setUp() {
+	global.AppIcon = *rl.LoadImage("./assets/images/p001.png")
+	rl.SetWindowIcon(global.AppIcon)
 	// lww := 0
 	if !global.Cfg.Debug {
 		rl.SetTraceLogLevel(rl.LogFatal)
@@ -54,6 +56,7 @@ func setUp() {
 		Add(global.SoundA.Update)
 
 	// rl.LoadAudioStream(441000, 24, 0)
+
 }
 
 func gameLoop() {

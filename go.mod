@@ -3,7 +3,7 @@ module oprc_core
 go 1.23.2
 
 require (
-	github.com/gen2brain/raylib-go/raylib v0.0.0-20250409052854-a4292f0f0412
+	github.com/gen2brain/raylib-go/raylib v0.55.1
 	github.com/pelletier/go-toml/v2 v2.2.4
 )
 

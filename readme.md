@@ -1,7 +1,3 @@
 # My Raylib go Template
 ---
-## TODO List
-- [x] LoadConfig
-- [x] CreateWindow
-- [x] Fullscreen Key
-- [x] Button
+## 2d game with raylib go 
