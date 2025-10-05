@@ -2,6 +2,7 @@ package src
 
 import (
 	"fmt"
+
 	"oprc_core/src/global"
 	"oprc_core/src/scene"
 
@@ -47,7 +48,7 @@ func setUp() {
 	// s1 := rl.LoadMusicStream("./assets/audio/bgm0.wav")
 	// rl.PlayMusicStream(s1)
 
-	global.SoundA.AddMusic("BGM0", "./assets/audio/bgm0.wav").SelectMusic("BGM0").Pause()
+	global.SoundA.AddMusic("BGM0", "./assets/audio/bgm0.wav").SelectMusic("BGM0")
 
 	global.Seq.
 		Add(global.ToggleFullscreenLogic).
@@ -56,7 +57,6 @@ func setUp() {
 		Add(global.SoundA.Update)
 
 	// rl.LoadAudioStream(441000, 24, 0)
-
 }
 
 func gameLoop() {

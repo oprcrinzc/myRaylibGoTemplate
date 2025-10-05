@@ -5,7 +5,7 @@ fps = 60
 lang = 'TH'
 
 [sound]
-main = 0
+main = 100
 music = 100
 action = 100
 environment = 100
